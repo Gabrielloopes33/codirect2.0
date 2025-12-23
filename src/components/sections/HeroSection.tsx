@@ -1,7 +1,11 @@
+"use client";
+
 import { HeroContent } from "@/core/types";
 import { ArrowRight, Play } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import FadeIn from "../animations/FadeIn";
+import { motion } from "framer-motion";
 
 interface HeroSectionProps {
     content: HeroContent;
@@ -26,30 +30,44 @@ export function HeroSection({ content, className }: HeroSectionProps) {
             {/* Content */}
             <div className="relative z-10 text-center space-y-8 max-w-4xl mx-auto">
                 <div className="space-y-6">
-                    <h1 className="text-7xl md:text-7xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-b from-white to-white/60 drop-shadow-sm">
-                        {content.title}
-                    </h1>
-                    <p className="text-xl md:text-2xl text-neutral-200 max-w-2xl mx-auto leading-relaxed font-light">
-                        {content.subtitle}
-                    </p>
+                    <FadeIn delay={0.1}>
+                        <h1 className="text-7xl md:text-7xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-b from-white to-white/60 drop-shadow-sm">
+                            {content.title}
+                        </h1>
+                    </FadeIn>
+                    <FadeIn delay={0.2}>
+                        <p className="text-xl md:text-2xl text-neutral-200 max-w-2xl mx-auto leading-relaxed font-light">
+                            {content.subtitle}
+                        </p>
+                    </FadeIn>
                 </div>
 
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-                    <button className="px-8 py-4 rounded-full bg-white text-black font-semibold hover:bg-neutral-200 transition-colors flex items-center gap-2 text-lg">
-                        {content.ctaPrimary} <ArrowRight className="w-5 h-5" />
-                    </button>
-                    <button className="px-8 py-4 rounded-full border border-white/20 bg-black/40 backdrop-blur-sm hover:bg-black/60 transition-colors text-white flex items-center gap-2 text-lg">
-                        <Play className="w-5 h-5" /> {content.ctaSecondary}
-                    </button>
-                </div>
+                <FadeIn delay={0.3}>
+                    <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+                        <motion.button
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            className="px-8 py-4 rounded-full bg-white text-black font-semibold hover:bg-neutral-200 transition-colors flex items-center gap-2 text-lg">
+                            {content.ctaPrimary} <ArrowRight className="w-5 h-5" />
+                        </motion.button>
+                        <motion.button
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            className="px-8 py-4 rounded-full border border-white/20 bg-black/40 backdrop-blur-sm hover:bg-black/60 transition-colors text-white flex items-center gap-2 text-lg">
+                            <Play className="w-5 h-5" /> {content.ctaSecondary}
+                        </motion.button>
+                    </div>
+                </FadeIn>
 
-                <div className="flex flex-wrap items-center justify-center gap-4 text-sm text-neutral-300 pt-4">
-                    {content.microCopy.map((item, index) => (
-                        <span key={index} className="px-3 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/10">
-                            {item}
-                        </span>
-                    ))}
-                </div>
+                <FadeIn delay={0.4}>
+                    <div className="flex flex-wrap items-center justify-center gap-4 text-sm text-neutral-300 pt-4">
+                        {content.microCopy.map((item, index) => (
+                            <span key={index} className="px-3 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/10">
+                                {item}
+                            </span>
+                        ))}
+                    </div>
+                </FadeIn>
             </div>
         </section>
     );

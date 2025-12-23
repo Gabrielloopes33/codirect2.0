@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import { ReactNode } from "react";
+import FadeIn from "../animations/FadeIn";
 
 export const BentoCard = ({
     className,
@@ -8,7 +9,8 @@ export const BentoCard = ({
     header,
     icon,
     href,
-    cta
+    cta,
+    delay = 0
 }: {
     className?: string;
     title?: string | ReactNode;
@@ -17,11 +19,14 @@ export const BentoCard = ({
     icon?: ReactNode;
     href?: string;
     cta?: string;
+    delay?: number;
 }) => {
     return (
-        <div
+        <FadeIn
+            delay={delay}
             className={cn(
                 "row-span-1 rounded-xl group/bento hover:shadow-xl transition duration-200 shadow-input dark:shadow-none p-4 dark:bg-black dark:border-white/[0.1] bg-white border border-transparent justify-between flex flex-col space-y-4",
+                "hover:-translate-y-1 hover:shadow-2xl hover:border-neutral-200 dark:hover:border-neutral-700",
                 "glass",
                 className
             )}
@@ -39,6 +44,6 @@ export const BentoCard = ({
                     <a href={href} className="text-xs text-neutral-400 mt-2 block hover:text-white transition-colors">{cta} &rarr;</a>
                 )}
             </div>
-        </div>
+        </FadeIn>
     );
 };
