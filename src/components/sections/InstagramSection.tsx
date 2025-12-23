@@ -14,7 +14,7 @@ export function InstagramSection({ content }: InstagramSectionProps) {
                 {/* Text Content */}
                 <FadeIn className="space-y-8 order-2 md:order-1">
                     <div className="space-y-4">
-                        <h2 className="text-7xl md:text-6xl font-extrabold text-neutral-900 dark:text-white tracking-tight">
+                        <h2 className="text-6xl md:text-6xl font-extrabold text-neutral-900 dark:text-white tracking-tight">
                             {content.title.split(' ').slice(0, 1).join(' ')}<br />
                             <span className="text-neutral-500">{content.title.split(' ').slice(1).join(' ')}</span>
                         </h2>

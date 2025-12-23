@@ -31,7 +31,7 @@ export function HeroSection({ content, className }: HeroSectionProps) {
             <div className="relative z-10 text-center space-y-8 max-w-4xl mx-auto">
                 <div className="space-y-6">
                     <FadeIn delay={0.1}>
-                        <h1 className="text-7xl md:text-7xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-b from-white to-white/60 drop-shadow-sm">
+                        <h1 className="text-7xl md:text-7xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-b from-white to-white/60 drop-shadow-sm py-15">
                             {content.title}
                         </h1>
                     </FadeIn>
