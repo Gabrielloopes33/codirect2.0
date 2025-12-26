@@ -1,19 +1,30 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
   --animate-scroll-up: scroll-up-smooth linear infinite;
   --animate-scroll-down: scroll-down-smooth linear infinite;
 
   @keyframes scroll-up-smooth {
-    0% { transform: translateY(0%); }
-    100% { transform: translateY(-50%); }
+    0% {
+      transform: translateY(0%);
+    }
+
+    100% {
+      transform: translateY(-50%);
+    }
   }
+
   @keyframes scroll-down-smooth {
-    0% { transform: translateY(-50%); }
-    100% { transform: translateY(0%); }
+    0% {
+      transform: translateY(-50%);
+    }
+
+    100% {
+      transform: translateY(0%);
+    }
   }
 }
 
