@@ -4,6 +4,7 @@ import { HeroContent } from "@/core/types";
 import { ArrowRight, Play } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import Link from "next/link";
 import FadeIn from "../animations/FadeIn";
 import { motion } from "framer-motion";
 
@@ -44,12 +45,14 @@ export function HeroSection({ content, className }: HeroSectionProps) {
 
                 <FadeIn delay={0.3}>
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-                        <motion.button
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            className="px-8 py-4 rounded-full bg-white text-black font-semibold hover:bg-neutral-200 transition-colors flex items-center gap-2 text-lg">
-                            {content.ctaPrimary} <ArrowRight className="w-5 h-5" />
-                        </motion.button>
+                        <Link href="/sessao-estrategica">
+                            <motion.button
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                className="px-8 py-4 rounded-full bg-white text-black font-semibold hover:bg-neutral-200 transition-colors flex items-center gap-2 text-lg">
+                                {content.ctaPrimary} <ArrowRight className="w-5 h-5" />
+                            </motion.button>
+                        </Link>
                         <motion.button
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}

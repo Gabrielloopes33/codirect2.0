@@ -11,7 +11,6 @@ export function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
 
     const navItems = [
-        { name: "Sessão estratégica", href: "#" },
         { name: "Live", href: "#" },
         { name: "Produto", href: "#" },
         { name: "Formulário", href: "#" },
@@ -20,7 +19,7 @@ export function Navbar() {
     return (
         <div className="fixed top-6 left-0 right-0 z-50 flex justify-center px-4">
             <nav className="relative flex items-center gap-4 p-2 pl-6 pr-2 rounded-full border border-white/10 bg-black/60 backdrop-blur-md shadow-lg shadow-black/20 max-w-4xl w-full justify-between transition-all duration-300 hover:bg-black/70 hover:border-white/20">
-                <div className="flex items-center gap-2">
+                <Link href="/" className="flex items-center gap-2">
                     <div className="relative w-32 h-8">
                         <Image
                             src="/logo.png"
@@ -30,7 +29,7 @@ export function Navbar() {
                             priority
                         />
                     </div>
-                </div>
+                </Link>
 
                 {/* Desktop Links */}
                 <div className="hidden md:flex items-center gap-1">
@@ -46,9 +45,11 @@ export function Navbar() {
                 </div>
 
                 <div className="flex items-center gap-2">
-                    <button className="hidden md:block px-6 py-2.5 rounded-full bg-white text-black text-sm font-semibold hover:bg-neutral-200 transition-all shadow-md hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 text-nowrap">
-                        Sessão Estratégica
-                    </button>
+                    <Link href="/sessao-estrategica">
+                        <button className="hidden md:block px-6 py-2.5 rounded-full bg-white text-black text-sm font-semibold hover:bg-neutral-200 transition-all shadow-md hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 text-nowrap">
+                            Sessão Estratégica
+                        </button>
+                    </Link>
                     {/* Mobile Toggle */}
                     <button
                         onClick={() => setIsOpen(!isOpen)}
@@ -77,9 +78,11 @@ export function Navbar() {
                                     {item.name}
                                 </Link>
                             ))}
-                            <button className="w-full mt-2 px-6 py-3 rounded-xl bg-white text-black text-sm font-semibold hover:bg-neutral-200 transition-colors">
-                                Sessão Estratégica
-                            </button>
+                            <Link href="/sessao-estrategica" className="w-full">
+                                <button className="w-full mt-2 px-6 py-3 rounded-xl bg-white text-black text-sm font-semibold hover:bg-neutral-200 transition-colors">
+                                    Sessão Estratégica
+                                </button>
+                            </Link>
                         </motion.div>
                     )}
                 </AnimatePresence>
