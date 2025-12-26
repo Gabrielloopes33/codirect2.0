@@ -100,8 +100,8 @@ export default function SessaoEstrategicaPage() {
 
                                 {/* RD Station Form Integration */}
                                 <RDStationForm
-                                    formId="formulario-sessao-estrategica"
-                                    formToken="dc92cfb0ccc9c90f92ae4965a514b37a"
+                                    formId="lp-diagnostico-gratuito-eag-0ed1a17e058ba32652b4"
+                                    formToken="UA-192948565-1"
                                 />
 
                                 <p className="mt-6 text-[10px] text-neutral-500 text-center uppercase tracking-widest leading-relaxed">

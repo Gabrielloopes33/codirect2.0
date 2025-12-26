@@ -15,7 +15,11 @@ export function RDStationForm({ formId, formToken }: RDStationFormProps) {
 
         const initForm = () => {
             if (window.RDStationForms) {
-                new window.RDStationForms(formId, formToken).createForm();
+                const container = document.getElementById(formId);
+                if (container) {
+                    container.innerHTML = ""; // Clear container to avoid duplication
+                    new window.RDStationForms(formId, formToken).createForm();
+                }
             }
         };
 
@@ -35,10 +39,10 @@ export function RDStationForm({ formId, formToken }: RDStationFormProps) {
     }, [formId, formToken]);
 
     return (
-        <div className="w-full min-h-[400px] flex items-center justify-center bg-white/5 rounded-2xl border border-white/10 overflow-hidden">
+        <div className="w-full min-h-[300px] relative">
             <div
                 role="main"
-                id={`${formId}-${formToken}`}
+                id={formId}
                 className="w-full"
             />
         </div>
