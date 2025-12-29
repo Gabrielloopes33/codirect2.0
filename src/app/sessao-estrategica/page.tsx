@@ -7,6 +7,8 @@ import FadeIn from "@/components/animations/FadeIn";
 import { CheckCircle2, TrendingUp, Users, Target, ShieldCheck } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+// @ts-ignore
+import SpotlightCard from "@/components/SpotlightCard";
 
 export default function SessaoEstrategicaPage() {
     return (
@@ -151,7 +153,7 @@ export default function SessaoEstrategicaPage() {
                         </div>
                     </FadeIn>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-left">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
                         {[
                             {
                                 title: "Seu 'Unfair Advantage'",
@@ -166,11 +168,14 @@ export default function SessaoEstrategicaPage() {
                                 desc: "Quais os próximos passos práticos para dobrar ou triplicar seu faturamento com previsibilidade."
                             }
                         ].map((benefit, i) => (
-                            <FadeIn key={i} delay={0.2 * i}>
-                                <div className="space-y-4 border-l-2 border-gold pl-6 group hover:bg-gold/5 transition-all duration-300 py-4 -ml-2 pl-8 rounded-r-2xl">
-                                    <h3 className="text-xl font-bold group-hover:text-gold transition-colors">{benefit.title}</h3>
-                                    <p className="text-neutral-600 leading-relaxed">{benefit.desc}</p>
-                                </div>
+                            <FadeIn key={i} delay={0.2 * i} className="h-full">
+                                {/* @ts-ignore */}
+                                <SpotlightCard className="h-full rounded-2xl border-white/10" spotlightColor="rgba(212, 175, 55, 0.4)">
+                                    <div className="space-y-4 p-8 h-full flex flex-col justify-center border-l-4 border-gold">
+                                        <h3 className="text-xl font-bold text-white group-hover:text-gold transition-colors">{benefit.title}</h3>
+                                        <p className="text-neutral-400 leading-relaxed">{benefit.desc}</p>
+                                    </div>
+                                </SpotlightCard>
                             </FadeIn>
                         ))}
                     </div>

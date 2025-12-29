@@ -3,6 +3,7 @@ import { BentoGrid } from "@/components/bento/BentoGrid";
 import { BentoCard } from "@/components/bento/BentoCard";
 import { Target, Users, Megaphone, TrendingUp, EyeOff } from "lucide-react";
 import FadeIn from "../animations/FadeIn";
+import Link from "next/link";
 
 interface MethodologySectionProps {
     content: MethodologyContent;
@@ -56,9 +57,12 @@ export function MethodologySection({ content }: MethodologySectionProps) {
 
                 <div className="flex justify-center pt-12 pb-8">
                     <FadeIn delay={0.6}>
-                        <button className="px-12 py-5 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-bold text-xl shadow-xl shadow-blue-900/20 hover:shadow-blue-900/40 hover:-translate-y-1 hover:scale-105 active:scale-95 transition-all">
+                        <Link
+                            href="/produto"
+                            className="inline-block px-12 py-5 rounded-full bg-white hover:bg-neutral-200 text-black font-bold text-xl shadow-lg hover:shadow-xl hover:-translate-y-1 hover:scale-105 active:scale-95 transition-all"
+                        >
                             Conheça o Método em Detalhes →
-                        </button>
+                        </Link>
                     </FadeIn>
                 </div>
             </div>
