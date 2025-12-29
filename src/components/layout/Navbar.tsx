@@ -11,8 +11,8 @@ export function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
 
     const navItems = [
-        { name: "Live", href: "#" },
-        { name: "Produto", href: "#" },
+        { name: "Live", href: "/live" },
+        { name: "Produto", href: "/produto" },
         { name: "Formulário", href: "#" },
     ];
 
