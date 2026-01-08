@@ -200,12 +200,13 @@ export function LiveHeroSection({ className }: LiveHeroSectionProps) {
                                     required
                                     className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/20 text-white focus:outline-none focus:border-codirect-gold focus:ring-2 focus:ring-codirect-gold/50 transition-all"
                                 >
-                                    <option value="" disabled className="text-black">Faturamento mensal</option>
-                                    <option value="0-10k" className="text-black">Até R$ 10 mil</option>
-                                    <option value="10k-30k" className="text-black">R$ 10 mil - R$ 30 mil</option>
-                                    <option value="30k-50k" className="text-black">R$ 30 mil - R$ 50 mil</option>
-                                    <option value="50k-100k" className="text-black">R$ 50 mil - R$ 100 mil</option>
-                                    <option value="100k+" className="text-black">Acima de R$ 100 mil</option>
+                                    <option value="" disabled className="text-black">Selecione</option>
+                                    <option value="0-50k" className="text-black">Até 50 mil</option>
+                                    <option value="50k-100k" className="text-black">50 mil a 100 mil</option>
+                                    <option value="100k-250k" className="text-black">100 mil a 250 mil</option>
+                                    <option value="250k-500k" className="text-black">250 mil a 500 mil</option>
+                                    <option value="500k-1m" className="text-black">500 mil a 1 milhão</option>
+                                    <option value="1m+" className="text-black">Acima de 1 milhão</option>
                                 </select>
                             </div>
                             
