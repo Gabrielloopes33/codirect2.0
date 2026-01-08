@@ -4,15 +4,28 @@ import { cn } from "@/lib/utils";
 import FadeIn from "../animations/FadeIn";
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { Bell } from "lucide-react";
-import Orb from "../Orb";
+import { Bell, X } from "lucide-react";
+import dynamic from "next/dynamic";
+
+// Lazy load Orb component to avoid SSR issues
+const Orb = dynamic(() => import("../Orb"), {
+    ssr: false,
+    loading: () => <div className="w-full h-full" />
+});
 
 interface LiveHeroSectionProps {
     className?: string;
 }
 
 export function LiveHeroSection({ className }: LiveHeroSectionProps) {
-    const [phone, setPhone] = useState("");
+    const [showModal, setShowModal] = useState(false);
+    const [formData, setFormData] = useState({
+        name: "",
+        email: "",
+        phone: "",
+        company: "",
+        revenue: ""
+    });
     const [isLoading, setIsLoading] = useState(false);
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -20,14 +33,17 @@ export function LiveHeroSection({ className }: LiveHeroSectionProps) {
         setIsLoading(true);
         
         // TODO: Integrar com RDStation ou seu backend
+        // Simulando envio do formulário
         setTimeout(() => {
             setIsLoading(false);
-            setPhone("");
+            setShowModal(false);
+            // Redirecionar para página de agradecimento
+            window.location.href = "https://pg.codirect.com.br/obrigado-webinario/";
         }, 1000);
     };
 
     return (
-        <section className={cn("relative min-h-[100vh] flex flex-col items-center justify-center overflow-hidden py-20 px-4 bg-codirect-black", className)}>
+        <section className={cn("relative min-h-screen flex flex-col items-center justify-start overflow-hidden px-4 pt-20 pb-12 bg-codirect-black", className)}>
             {/* Spotlight Effect Background */}
             <div className="absolute inset-0 z-0">
                 <div style={{ width: '100%', height: '1300px', position: 'relative' }}>
@@ -42,7 +58,7 @@ export function LiveHeroSection({ className }: LiveHeroSectionProps) {
             </div>
 
             {/* Content */}
-            <div className="relative z-10 text-center space-y-8 max-w-3xl mx-auto">
+            <div className="relative z-10 text-center space-y-6 md:space-y-8 max-w-4xl mx-auto px-4">
                 {/* Badge */}
                 <FadeIn delay={0.1}>
                     <motion.div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
@@ -53,48 +69,164 @@ export function LiveHeroSection({ className }: LiveHeroSectionProps) {
 
                 {/* Headline */}
                 <FadeIn delay={0.2}>
-                    <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-tight">
-                        A estratégia de bastidores que gera lucro e previsibilidade.
+                    <h1 className="text-5xl sm:text-4xl md:text-4xl lg:text-6xl font-bold tracking-tight text-white leading-tight">
+                        O Jogo Real do Crescimento:
+                    </h1>
+                    <h1 className="text-2xl sm:text-4xl md:text-4xl lg:text-6xl font-bold tracking-tight text-white leading-tight py-12">
+                         <p>o método que transforma empresários amadores em profissionais </p>
                     </h1>
                 </FadeIn>
 
-                {/* Subheadline */}
-                <FadeIn delay={0.3}>
-                    <p className="text-lg md:text-xl text-neutral-300 max-w-2xl mx-auto leading-relaxed">
-                        Uma aula densa, sem enrolação, sobre como aplicar o Método Codirect no seu negócio local. De graça, toda segunda-feira.
-                    </p>
-                </FadeIn>
-
-                {/* CTA Input Group */}
-                <FadeIn delay={0.4}>
-                    <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto mt-8">
-                        <input
-                            type="tel"
-                            value={phone}
-                            onChange={(e) => setPhone(e.target.value)}
-                            placeholder="Seu telefone"
-                            required
-                            className="flex-1 px-4 py-3 rounded-lg bg-white/5 border border-white/20 backdrop-blur-sm text-white placeholder-white/50 focus:outline-none focus:border-codirect-gold focus:ring-2 focus:ring-codirect-gold/50 transition-all"
-                        />
-                        <motion.button
-                            whileHover={{ scale: 1.02 }}
-                            whileTap={{ scale: 0.98 }}
-                            disabled={isLoading}
-                            className="px-6 py-3 rounded-lg bg-codirect-gold text-black font-semibold hover:bg-yellow-400 transition-colors flex items-center justify-center gap-2 min-w-max ring-2 ring-codirect-gold/0 hover:ring-codirect-gold/50 ring-offset-2 ring-offset-codirect-black"
-                        >
-                            <Bell className="w-4 h-4" />
-                            {isLoading ? "Definindo..." : "Definir Lembrete"}
-                        </motion.button>
-                    </form>
-                </FadeIn>
-
-                {/* Micro-copy */}
+                {/* Lista de benefícios */}
                 <FadeIn delay={0.5}>
-                    <p className="text-sm text-neutral-400">
-                        Junte-se a <span className="text-white font-semibold">+50.000 empresários</span> que assistem semanalmente.
-                    </p>
+                    <div className="space-y-4 text-left max-w-3xl mx-auto">
+                        <div className="flex items-start gap-3">
+                            <span className="text-green-500 text-xl mt-1 flex-shrink-0">✅</span>
+                            <p className="text-base md:text-lg text-neutral-300 leading-relaxed">
+                                Estratégias práticas de posicionamento, marketing, vendas e liderança — aplicadas por quem vive o jogo real todos os dias
+                            </p>
+                        </div>
+                        <div className="flex items-start gap-3">
+                            <span className="text-green-500 text-xl mt-1 flex-shrink-0">✅</span>
+                            <p className="text-base md:text-lg text-neutral-300 leading-relaxed">
+                                Sem promessas milagrosas — apenas o que já provou gerar crescimento sólido e previsível
+                            </p>
+                        </div>
+                        <div className="flex items-start gap-3">
+                            <span className="text-green-500 text-xl mt-1 flex-shrink-0">✅</span>
+                            <p className="text-base md:text-lg text-neutral-300 leading-relaxed">
+                                Faça parte do movimento que vai formar 1000 Campeões do Crescimento
+                            </p>
+                        </div>
+                        <div className="flex items-start gap-3">
+                            <span className="text-blue-400 text-xl mt-1 flex-shrink-0">📅</span>
+                            <p className="text-base md:text-lg text-white font-semibold leading-relaxed">
+                                Próxima Segunda-feira, às 20h — ao vivo com Evandro Mazuco
+                            </p>
+                        </div>
+                    </div>
+                </FadeIn>
+
+                {/* CTA Button */}
+                <FadeIn delay={0.7}>
+                    <motion.button
+                        onClick={() => setShowModal(true)}
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        className="w-full sm:w-auto px-8 py-4 rounded-lg bg-codirect-gold text-black font-semibold hover:bg-yellow-400 transition-colors inline-flex items-center justify-center gap-2 text-base md:text-lg ring-2 ring-codirect-gold/0 hover:ring-codirect-gold/50 ring-offset-2 ring-offset-codirect-black"
+                    >
+                        <Bell className="w-5 h-5" />
+                        Garantir Minha Vaga
+                    </motion.button>
                 </FadeIn>
             </div>
+
+            {/* Modal */}
+            {showModal && (
+                <motion.div 
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+                    onClick={() => setShowModal(false)}
+                >
+                    <motion.div 
+                        initial={{ scale: 0.9, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        transition={{ type: "spring", duration: 0.5 }}
+                        className="relative w-full max-w-md bg-[#121212] rounded-2xl p-8 border border-white/10 shadow-2xl"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <button 
+                            onClick={() => setShowModal(false)}
+                            className="absolute top-4 right-4 text-neutral-400 hover:text-white transition-colors"
+                        >
+                            <X className="w-6 h-6" />
+                        </button>
+
+                        <div className="mb-6 text-center">
+                            <h2 className="text-2xl font-bold text-white mb-2">
+                                Garantir Vaga - Próxima Segunda
+                            </h2>
+                            <p className="text-neutral-400 text-sm">
+                                Preencha os dados para receber o lembrete
+                            </p>
+                        </div>
+
+                        <form onSubmit={handleSubmit} className="space-y-4">
+                            <div>
+                                <input
+                                    type="text"
+                                    value={formData.name}
+                                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                                    placeholder="Nome completo"
+                                    required
+                                    className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:border-codirect-gold focus:ring-2 focus:ring-codirect-gold/50 transition-all"
+                                />
+                            </div>
+                            <div>
+                                <input
+                                    type="email"
+                                    value={formData.email}
+                                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                                    placeholder="E-mail"
+                                    required
+                                    className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:border-codirect-gold focus:ring-2 focus:ring-codirect-gold/50 transition-all"
+                                />
+                            </div>
+                            <div>
+                                <input
+                                    type="tel"
+                                    value={formData.phone}
+                                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                                    placeholder="Telefone/WhatsApp"
+                                    required
+                                    className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:border-codirect-gold focus:ring-2 focus:ring-codirect-gold/50 transition-all"
+                                />
+                            </div>
+                            <div>
+                                <input
+                                    type="text"
+                                    value={formData.company}
+                                    onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                                    placeholder="Nome da empresa"
+                                    required
+                                    className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:border-codirect-gold focus:ring-2 focus:ring-codirect-gold/50 transition-all"
+                                />
+                            </div>
+                            <div>
+                                <select
+                                    value={formData.revenue}
+                                    onChange={(e) => setFormData({ ...formData, revenue: e.target.value })}
+                                    required
+                                    className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/20 text-white focus:outline-none focus:border-codirect-gold focus:ring-2 focus:ring-codirect-gold/50 transition-all"
+                                >
+                                    <option value="" disabled className="text-black">Faturamento mensal</option>
+                                    <option value="0-10k" className="text-black">Até R$ 10 mil</option>
+                                    <option value="10k-30k" className="text-black">R$ 10 mil - R$ 30 mil</option>
+                                    <option value="30k-50k" className="text-black">R$ 30 mil - R$ 50 mil</option>
+                                    <option value="50k-100k" className="text-black">R$ 50 mil - R$ 100 mil</option>
+                                    <option value="100k+" className="text-black">Acima de R$ 100 mil</option>
+                                </select>
+                            </div>
+                            
+                            <motion.button
+                                whileHover={{ scale: 1.02 }}
+                                whileTap={{ scale: 0.98 }}
+                                disabled={isLoading}
+                                type="submit"
+                                className="w-full px-6 py-4 rounded-lg bg-codirect-gold text-black font-semibold hover:bg-yellow-400 transition-colors flex items-center justify-center gap-2"
+                            >
+                                <Bell className="w-5 h-5" />
+                                {isLoading ? "Enviando..." : "Confirmar Presença"}
+                            </motion.button>
+                        </form>
+
+                        <p className="mt-4 text-xs text-neutral-500 text-center">
+                            Seus dados estão seguros. Protegidos pela LGPD.
+                        </p>
+                    </motion.div>
+                </motion.div>
+            )}
         </section>
     );
 }
