@@ -31,8 +31,50 @@ const nextConfig: NextConfig = {
 
   // Enable experimental features for better performance
   experimental: {
-    optimizePackageImports: ['lucide-react', 'framer-motion'],
+    optimizePackageImports: ['lucide-react', 'framer-motion', '@radix-ui/react-scroll-area'],
     scrollRestoration: true,
+    // More aggressive code splitting
+    optimizeCss: true,
+  },
+
+  // Granular code splitting
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      config.optimization = {
+        ...config.optimization,
+        splitChunks: {
+          chunks: 'all',
+          cacheGroups: {
+            default: false,
+            vendors: false,
+            // Vendor chunk for external libraries
+            vendor: {
+              name: 'vendor',
+              chunks: 'all',
+              test: /node_modules/,
+              priority: 20
+            },
+            // Separate chunk for heavy libraries
+            heavy: {
+              name: 'heavy',
+              test: /node_modules\/(framer-motion|ogl)/,
+              chunks: 'all',
+              priority: 30,
+            },
+            // Common chunk for shared code
+            common: {
+              name: 'common',
+              minChunks: 2,
+              chunks: 'all',
+              priority: 10,
+              reuseExistingChunk: true,
+              enforce: true
+            }
+          }
+        }
+      };
+    }
+    return config;
   },
 
   // Headers for performance
