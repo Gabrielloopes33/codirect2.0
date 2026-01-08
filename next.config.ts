@@ -33,8 +33,6 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ['lucide-react', 'framer-motion', '@radix-ui/react-scroll-area'],
     scrollRestoration: true,
-    // More aggressive code splitting
-    optimizeCss: true,
   },
 
   // Granular code splitting
