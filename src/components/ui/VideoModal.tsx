@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, AnimatePresence, LazyMotion, domAnimation } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import { useEffect } from "react";
 
@@ -33,28 +33,27 @@ export default function VideoModal({ isOpen, onClose, videoId }: VideoModalProps
     }, [onClose]);
 
     return (
-        <LazyMotion features={domAnimation} strict>
-            <AnimatePresence>
-                {isOpen && (
-                    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
-                        {/* Backdrop */}
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            transition={{ duration: 0.2 }}
-                            onClick={onClose}
-                            className="absolute inset-0 bg-black/80 backdrop-blur-sm cursor-pointer"
-                        />
+        <AnimatePresence>
+            {isOpen && (
+                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
+                    {/* Backdrop */}
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.2 }}
+                        onClick={onClose}
+                        className="absolute inset-0 bg-black/80 backdrop-blur-sm cursor-pointer"
+                    />
 
-                        {/* Modal Content */}
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.98 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 0.98 }}
-                            transition={{ duration: 0.2 }}
-                            className="relative w-full max-w-5xl aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl border border-white/10"
-                        >
+                    {/* Modal Content */}
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.98 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.98 }}
+                        transition={{ duration: 0.2 }}
+                        className="relative w-full max-w-5xl aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl border border-white/10"
+                    >
                             {/* Close Button */}
                             <button
                                 onClick={onClose}
@@ -74,12 +73,11 @@ export default function VideoModal({ isOpen, onClose, videoId }: VideoModalProps
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                     allowFullScreen
                                     className="w-full h-full"
-                                ></iframe>
-                            </div>
-                        </motion.div>
-                    </div>
-                )}
-            </AnimatePresence>
-        </LazyMotion>
+                            ></iframe>
+                        </div>
+                    </motion.div>
+                </div>
+            )}
+        </AnimatePresence>
     );
 }

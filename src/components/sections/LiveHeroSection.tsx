@@ -77,8 +77,21 @@ export function LiveHeroSection({ className }: LiveHeroSectionProps) {
                     </h1>
                 </FadeIn>
 
+                {/* CTA Button */}
+                <FadeIn delay={0.4}>
+                    <motion.button
+                        onClick={() => setShowModal(true)}
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        className="w-full sm:w-auto px-8 py-4 rounded-lg bg-codirect-gold text-black font-semibold hover:bg-yellow-400 transition-colors inline-flex items-center justify-center gap-2 text-base md:text-lg ring-2 ring-codirect-gold/0 hover:ring-codirect-gold/50 ring-offset-2 ring-offset-codirect-black"
+                    >
+                        <Bell className="w-5 h-5" />
+                        Garantir Minha Vaga
+                    </motion.button>
+                </FadeIn>
+
                 {/* Lista de benefícios */}
-                <FadeIn delay={0.5}>
+                <FadeIn delay={0.6}>
                     <div className="space-y-4 text-left max-w-3xl mx-auto">
                         <div className="flex items-start gap-3">
                             <span className="text-green-500 text-xl mt-1 flex-shrink-0">✅</span>
@@ -105,19 +118,6 @@ export function LiveHeroSection({ className }: LiveHeroSectionProps) {
                             </p>
                         </div>
                     </div>
-                </FadeIn>
-
-                {/* CTA Button */}
-                <FadeIn delay={0.7}>
-                    <motion.button
-                        onClick={() => setShowModal(true)}
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                        className="w-full sm:w-auto px-8 py-4 rounded-lg bg-codirect-gold text-black font-semibold hover:bg-yellow-400 transition-colors inline-flex items-center justify-center gap-2 text-base md:text-lg ring-2 ring-codirect-gold/0 hover:ring-codirect-gold/50 ring-offset-2 ring-offset-codirect-black"
-                    >
-                        <Bell className="w-5 h-5" />
-                        Garantir Minha Vaga
-                    </motion.button>
                 </FadeIn>
             </div>
 
