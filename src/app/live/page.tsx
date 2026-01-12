@@ -21,6 +21,10 @@ export const metadata: Metadata = {
     },
 };
 
+// Enable static optimization
+export const dynamic = 'force-static';
+export const revalidate = 3600; // Revalidate every hour
+
 export default function LivePage() {
     return (
         <main className="w-full overflow-hidden min-h-screen">

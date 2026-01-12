@@ -3,14 +3,14 @@
 import { cn } from "@/lib/utils";
 import FadeIn from "../animations/FadeIn";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useCallback, useMemo } from "react";
 import { Bell, X } from "lucide-react";
 import dynamic from "next/dynamic";
 
 // Lazy load Orb component to avoid SSR issues
 const Orb = dynamic(() => import("../Orb"), {
     ssr: false,
-    loading: () => <div className="w-full h-full" />
+    loading: () => <div className="w-full h-full" />,
 });
 
 interface LiveHeroSectionProps {
@@ -28,7 +28,10 @@ export function LiveHeroSection({ className }: LiveHeroSectionProps) {
     });
     const [isLoading, setIsLoading] = useState(false);
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleCloseModal = useCallback(() => setShowModal(false), []);
+    const handleOpenModal = useCallback(() => setShowModal(true), []);
+
+    const handleSubmit = useCallback(async (e: React.FormEvent) => {
         e.preventDefault();
         setIsLoading(true);
         
@@ -40,16 +43,31 @@ export function LiveHeroSection({ className }: LiveHeroSectionProps) {
             // Redirecionar para página de agradecimento
             window.location.href = "https://pg.codirect.com.br/obrigado-webinario/";
         }, 1000);
-    };
+    }, []);
+
+    const buttonVariants = useMemo(() => ({
+        whileHover: { scale: 1.02 },
+        whileTap: { scale: 0.98 }
+    }), []);
+
+    const modalVariants = useMemo(() => ({
+        initial: { opacity: 0 },
+        animate: { opacity: 1 }
+    }), []);
+
+    const modalContentVariants = useMemo(() => ({
+        initial: { scale: 0.9, opacity: 0 },
+        animate: { scale: 1, opacity: 1 }
+    }), []);
 
     return (
         <section className={cn("relative min-h-screen flex flex-col items-center justify-start overflow-hidden px-4 pt-20 pb-12 bg-codirect-black", className)}>
             {/* Spotlight Effect Background */}
             <div className="absolute inset-0 z-0">
-                <div style={{ width: '100%', height: '1300px', position: 'relative' }}>
+                <div style={{ width: '100%', height: '1300px', position: 'relative', contain: 'layout style paint' }}>
                     <Orb
-                        hoverIntensity={0.8}
-                        rotateOnHover={true}
+                        hoverIntensity={0.6}
+                        rotateOnHover={false}
                         hue={80}
                         forceHoverState={false}
                     />
@@ -80,10 +98,11 @@ export function LiveHeroSection({ className }: LiveHeroSectionProps) {
                 {/* CTA Button */}
                 <FadeIn delay={0.4}>
                     <motion.button
-                        onClick={() => setShowModal(true)}
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
+                        onClick={handleOpenModal}
+                        whileHover={buttonVariants.whileHover}
+                        whileTap={buttonVariants.whileTap}
                         className="w-full sm:w-auto px-8 py-4 rounded-lg bg-codirect-gold text-black font-semibold hover:bg-yellow-400 transition-colors inline-flex items-center justify-center gap-2 text-base md:text-lg ring-2 ring-codirect-gold/0 hover:ring-codirect-gold/50 ring-offset-2 ring-offset-codirect-black"
+                        style={{ willChange: 'transform' }}
                     >
                         <Bell className="w-5 h-5" />
                         Garantir Minha Vaga
@@ -124,21 +143,24 @@ export function LiveHeroSection({ className }: LiveHeroSectionProps) {
             {/* Modal */}
             {showModal && (
                 <motion.div 
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
+                    initial={modalVariants.initial}
+                    animate={modalVariants.animate}
                     className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
-                    onClick={() => setShowModal(false)}
+                    onClick={handleCloseModal}
+                    style={{ willChange: 'opacity' }}
                 >
                     <motion.div 
-                        initial={{ scale: 0.9, opacity: 0 }}
-                        animate={{ scale: 1, opacity: 1 }}
+                        initial={modalContentVariants.initial}
+                        animate={modalContentVariants.animate}
                         transition={{ type: "spring", duration: 0.5 }}
                         className="relative w-full max-w-md bg-[#121212] rounded-2xl p-8 border border-white/10 shadow-2xl"
                         onClick={(e) => e.stopPropagation()}
+                        style={{ willChange: 'transform, opacity' }}
                     >
                         <button 
-                            onClick={() => setShowModal(false)}
+                            onClick={handleCloseModal}
                             className="absolute top-4 right-4 text-neutral-400 hover:text-white transition-colors"
+                            aria-label="Fechar modal"
                         >
                             <X className="w-6 h-6" />
                         </button>
@@ -211,11 +233,12 @@ export function LiveHeroSection({ className }: LiveHeroSectionProps) {
                             </div>
                             
                             <motion.button
-                                whileHover={{ scale: 1.02 }}
-                                whileTap={{ scale: 0.98 }}
+                                whileHover={buttonVariants.whileHover}
+                                whileTap={buttonVariants.whileTap}
                                 disabled={isLoading}
                                 type="submit"
-                                className="w-full px-6 py-4 rounded-lg bg-codirect-gold text-black font-semibold hover:bg-yellow-400 transition-colors flex items-center justify-center gap-2"
+                                className="w-full px-6 py-4 rounded-lg bg-codirect-gold text-black font-semibold hover:bg-yellow-400 transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                                style={{ willChange: 'transform' }}
                             >
                                 <Bell className="w-5 h-5" />
                                 {isLoading ? "Enviando..." : "Confirmar Presença"}

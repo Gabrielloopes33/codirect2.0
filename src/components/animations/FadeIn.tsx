@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useMemo } from "react";
 
 interface FadeInProps {
     children: React.ReactNode;
@@ -17,27 +18,35 @@ export default function FadeIn({
     delay = 0,
     viewportAmount = 0.3,
 }: FadeInProps) {
+    const variants = useMemo(() => ({
+        initial: {
+            opacity: 0,
+            y: noVertical ? 0 : 20
+        },
+        whileInView: {
+            opacity: 1,
+            y: 0
+        }
+    }), [noVertical]);
+
+    const transition = useMemo(() => ({
+        duration: 0.5,
+        delay: delay,
+        ease: "easeOut"
+    }), [delay]);
+
     return (
         <motion.div
             className={className}
-            initial={{
-                opacity: 0,
-                y: noVertical ? 0 : 20
-            }}
-            whileInView={{
-                opacity: 1,
-                y: 0
-            }}
+            style={{ willChange: 'opacity, transform' }}
+            initial={variants.initial}
+            whileInView={variants.whileInView}
             viewport={{
                 once: true,
                 amount: viewportAmount,
                 margin: "0px 0px -80px 0px"
             }}
-            transition={{
-                duration: 0.5,
-                delay: delay,
-                ease: "easeOut"
-            }}
+            transition={transition}
         >
             {children}
         </motion.div>
