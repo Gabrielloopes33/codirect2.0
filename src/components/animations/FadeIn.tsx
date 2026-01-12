@@ -32,7 +32,7 @@ export default function FadeIn({
     const transition = useMemo(() => ({
         duration: 0.5,
         delay: delay,
-        ease: "easeOut"
+        ease: [0.4, 0, 0.2, 1] // easeOut bezier
     }), [delay]);
 
     return (
