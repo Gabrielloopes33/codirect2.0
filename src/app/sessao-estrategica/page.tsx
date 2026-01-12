@@ -3,12 +3,11 @@
 import { RDStationForm } from "@/components/forms/RDStationForm";
 import { LazyLoad } from "@/components/LazyLoad";
 import dynamic from "next/dynamic";
-import { RevealText } from "@/components/ui/RevealText";
-import { BeamsUpstream } from "@/components/ui/BeamsUpstream";
 import FadeIn from "@/components/animations/FadeIn";
 import { CheckCircle2, TrendingUp, Target } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useMemo } from "react";
 // @ts-ignore
 import SpotlightCard from "@/components/SpotlightCard";
 
@@ -19,22 +18,102 @@ const KineticTestimonial = dynamic(() => import("@/components/ui/KineticTestimon
 });
 
 export default function SessaoEstrategicaPage() {
+    const benefits = useMemo(() => [
+        {
+            icon: Target,
+            title: "Diagnóstico Preciso",
+            desc: "Análise profunda do seu momento atual e gargalos."
+        },
+        {
+            icon: TrendingUp,
+            title: "Plano de Escala",
+            desc: "Visão clara de como chegar aos seus objetivos de faturamento."
+        }
+    ], []);
+
+    const strategicBenefits = useMemo(() => [
+        {
+            title: "Seu 'Unfair Advantage'",
+            desc: "Identificamos o que torna seu negócio único e como usar isso para afastar a concorrência por preço."
+        },
+        {
+            title: "Furos no Funil",
+            desc: "Onde você está perdendo leads hoje? Analisamos seu processo de conversão atual."
+        },
+        {
+            title: "Caminho da Escala",
+            desc: "Quais os próximos passos práticos para dobrar ou triplicar seu faturamento com previsibilidade."
+        }
+    ], []);
+
+    const testimonials = useMemo(() => [
+        {
+            name: "Lia Herrmann",
+            handle: "@liaherrmann.arq",
+            review: "Saí de um faturamento estagnado para um crescimento de 200%, atraindo 10x mais clientes qualificados.",
+            avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=100",
+        },
+        {
+            name: "Dr. Carlos Silva",
+            handle: "@drcarlos.implantes",
+            review: "A previsibilidade que o Método CoDirect trouxe para a minha clínica foi o divisor de águas que eu precisava.",
+            avatar: "https://images.unsplash.com/photo-1537368910025-700350fe46c7?q=80&w=100",
+        },
+        {
+            name: "Ana Paula",
+            handle: "@anapaula.estetica",
+            review: "Hoje eu não corro mais atrás de clientes, eles chegam até mim sabendo o valor do meu serviço.",
+            avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=100",
+        },
+        {
+            name: "Roberto Mendes",
+            handle: "@robertomendes.vendas",
+            review: "O Mecanismo de Vendas Escondidas é simplesmente genial. Vendas acontecendo sem eu precisar postar 24h por dia.",
+            avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=100",
+        },
+        {
+            name: "Juliana Costa",
+            handle: "@julianacosta.adv",
+            review: "Finalmente entendi como me posicionar como autoridade e cobrar o que eu realmente mereço.",
+            avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=100",
+        },
+        {
+            name: "Marcos Santos",
+            handle: "@marcos.santos.tech",
+            review: "ROI de 15x nos primeiros 3 meses. O tráfego pago da CoDirect é outro nível.",
+            avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=100",
+        },
+        {
+            name: "Beatriz Oliveira",
+            handle: "@beatriz.oliveira",
+            review: "A CoDirect não faz apenas posts bonitos, eles constroem uma máquina de vendas real.",
+            avatar: "https://images.unsplash.com/photo-1554151228-14d9def656e4?q=80&w=100",
+        },
+        {
+            name: "Paulo Ricardo",
+            handle: "@pauloricardo.eng",
+            review: "O suporte é impecável. Nunca me senti tão acompanhado em uma consultoria de negócios.",
+            avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=100",
+        }
+    ], []);
+
     return (
         <main className="min-h-screen bg-codirect-black text-white">
             {/* Hero & Form Section - Mobile First */}
-            <section className="relative py-12 md:py-20 px-4 overflow-hidden">
-                {/* Beams Background */}
-                <BeamsUpstream className="opacity-100" />
+            <section className="relative py-8 md:py-12 px-4 overflow-hidden" style={{ contain: 'layout style paint' }}>
+                {/* Lightweight Background */}
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-gold/5 to-transparent opacity-30" />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(212,175,55,0.1),transparent_50%)]" />
 
                 <div className="max-w-6xl mx-auto relative z-10">
-                    {/* Título Principal */}
+                    {/* Título Principal - Simplificado */}
                     <FadeIn delay={0.1}>
-                        <div className="text-center mb-10 md:mb-14 pt-8 md:pt-12">
-                            <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold tracking-tight leading-tight mb-6">
+                        <div className="text-center mb-8 md:mb-10 pt-4 md:pt-6">
+                            <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight mb-4">
                                 A CODIRECT identifica a sua Essência e te orienta em como se Posicionar para faturar mais.
                             </h1>
                             <p className="text-lg md:text-xl text-neutral-400 max-w-2xl mx-auto">
-                                Seu negócio merece o próximo nível. Aplique agora para uma sessão estratégica exclusiva e descubra o caminho para a previsibilidade e lucro.
+                                Seu negócio merece o próximo nível.
                             </p>
                         </div>
                     </FadeIn>
@@ -74,18 +153,7 @@ export default function SessaoEstrategicaPage() {
                     <FadeIn delay={0.3}>
                         <div className="max-w-3xl mx-auto">
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                                {[
-                                    {
-                                        icon: Target,
-                                        title: "Diagnóstico Preciso",
-                                        desc: "Análise profunda do seu momento atual e gargalos."
-                                    },
-                                    {
-                                        icon: TrendingUp,
-                                        title: "Plano de Escala",
-                                        desc: "Visão clara de como chegar aos seus objetivos de faturamento."
-                                    }
-                                ].map((item, i) => (
+                                {benefits.map((item, i) => (
                                     <div key={i} className="flex gap-4 items-start p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-gold/50 transition-all duration-300 group hover:shadow-[0_0_30px_-10px_rgba(212,175,55,0.3)]">
                                         <div className="p-3 rounded-xl bg-gold/10 text-gold group-hover:scale-110 transition-transform">
                                             <item.icon className="w-6 h-6" />
@@ -146,20 +214,7 @@ export default function SessaoEstrategicaPage() {
                     </FadeIn>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
-                        {[
-                            {
-                                title: "Seu 'Unfair Advantage'",
-                                desc: "Identificamos o que torna seu negócio único e como usar isso para afastar a concorrência por preço."
-                            },
-                            {
-                                title: "Furos no Funil",
-                                desc: "Onde você está perdendo leads hoje? Analisamos seu processo de conversão atual."
-                            },
-                            {
-                                title: "Caminho da Escala",
-                                desc: "Quais os próximos passos práticos para dobrar ou triplicar seu faturamento com previsibilidade."
-                            }
-                        ].map((benefit, i) => (
+                        {strategicBenefits.map((benefit, i) => (
                             <FadeIn key={i} delay={0.2 * i} className="h-full">
                                 {/* @ts-ignore */}
                                 <SpotlightCard className="h-full rounded-2xl border-white/10" spotlightColor="rgba(212, 175, 55, 0.4)">
@@ -176,58 +231,7 @@ export default function SessaoEstrategicaPage() {
 
             {/* Kinetic Testimonials - Lazy Loaded */}
             <LazyLoad placeholder={<div className="min-h-[400px] animate-pulse bg-neutral-900/50" />}>
-                <KineticTestimonial
-                    testimonials={[
-                        {
-                            name: "Lia Herrmann",
-                            handle: "@liaherrmann.arq",
-                            review: "Saí de um faturamento estagnado para um crescimento de 200%, atraindo 10x mais clientes qualificados.",
-                            avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=100",
-                        },
-                        {
-                            name: "Dr. Carlos Silva",
-                            handle: "@drcarlos.implantes",
-                            review: "A previsibilidade que o Método CoDirect trouxe para a minha clínica foi o divisor de águas que eu precisava.",
-                            avatar: "https://images.unsplash.com/photo-1537368910025-700350fe46c7?q=80&w=100",
-                        },
-                        {
-                            name: "Ana Paula",
-                            handle: "@anapaula.estetica",
-                            review: "Hoje eu não corro mais atrás de clientes, eles chegam até mim sabendo o valor do meu serviço.",
-                            avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=100",
-                        },
-                        {
-                            name: "Roberto Mendes",
-                            handle: "@robertomendes.vendas",
-                            review: "O Mecanismo de Vendas Escondidas é simplesmente genial. Vendas acontecendo sem eu precisar postar 24h por dia.",
-                            avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=100",
-                        },
-                        {
-                            name: "Juliana Costa",
-                            handle: "@julianacosta.adv",
-                            review: "Finalmente entendi como me posicionar como autoridade e cobrar o que eu realmente mereço.",
-                            avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=100",
-                        },
-                        {
-                            name: "Marcos Santos",
-                            handle: "@marcos.santos.tech",
-                            review: "ROI de 15x nos primeiros 3 meses. O tráfego pago da CoDirect é outro nível.",
-                            avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=100",
-                        },
-                        {
-                            name: "Beatriz Oliveira",
-                            handle: "@beatriz.oliveira",
-                            review: "A CoDirect não faz apenas posts bonitos, eles constroem uma máquina de vendas real.",
-                            avatar: "https://images.unsplash.com/photo-1554151228-14d9def656e4?q=80&w=100",
-                        },
-                        {
-                            name: "Paulo Ricardo",
-                            handle: "@pauloricardo.eng",
-                            review: "O suporte é impecável. Nunca me senti tão acompanhado em uma consultoria de negócios.",
-                            avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=100",
-                        }
-                    ]}
-                />
+                <KineticTestimonial testimonials={testimonials} />
             </LazyLoad>
 
             {/* Footer / Final CTA */}
