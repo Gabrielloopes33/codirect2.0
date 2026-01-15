@@ -181,3 +181,6 @@ declare global {
         RDStationForms: any;
     }
 }
+
+// Export default para compatibilidade
+export default RDStationForm;

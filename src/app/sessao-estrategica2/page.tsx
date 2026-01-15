@@ -1,20 +1,25 @@
 "use client";
 
-import { CustomRDForm } from "@/components/forms/CustomRDForm";
-import { LazyLoad } from "@/components/LazyLoad";
-import dynamic from "next/dynamic";
-import FadeIn from "@/components/animations/FadeIn";
+import { RDStationForm } from "@/components/forms/RDStationForm";
+// import { LazyLoad } from "@/components/LazyLoad";
+// import dynamic from "next/dynamic";
+// import FadeIn from "@/components/animations/FadeIn";
 import { CheckCircle2, TrendingUp, Target } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useMemo } from "react";
-import SpotlightCard from "@/components/SpotlightCard";
+// import SpotlightCard from "@/components/SpotlightCard";
 
 // Lazy load heavy components
-const KineticTestimonial = dynamic(() => import("@/components/ui/KineticTestimonials"), {
-    ssr: false,
-    loading: () => <div className="min-h-[400px] animate-pulse bg-neutral-900/50" />
-});
+// const KineticTestimonial = dynamic(() => import("@/components/ui/KineticTestimonials"), {
+//     ssr: false,
+//     loading: () => <div className="min-h-[400px] animate-pulse bg-neutral-900/50" />
+// });
+
+// Componente FadeIn temporário
+const FadeIn = ({ children, delay, className }: any) => <div className={className}>{children}</div>;
+const LazyLoad = ({ children, placeholder }: any) => <div>{children}</div>;
+const SpotlightCard = ({ children, className }: any) => <div className={className}>{children}</div>;
 
 export default function SessaoEstrategicaPage() {
     const benefits = useMemo(() => [
@@ -133,12 +138,17 @@ export default function SessaoEstrategicaPage() {
                                     </p>
                                 </div>
 
-                                {/* Formulário Customizado */}
+                                {/* RD Station Form Integration com estilo aprimorado */}
                                 <div className="rd-form-wrapper">
-                                    <CustomRDForm formId="lp-diagnostico-gratuito-eag-0ed1a17e058ba32652b4" />
+                                    <RDStationForm
+                                        formId="lp-diagnostico-gratuito-eag-0ed1a17e058ba32652b4"
+                                        formToken="UA-192948565-1"
+                                    />
                                 </div>
 
-                                
+                                <p className="mt-6 text-[10px] text-neutral-500 text-center uppercase tracking-widest leading-relaxed">
+                                    Sua privacidade é nossa prioridade. Dados protegidos pela LGPD.
+                                </p>
                             </div>
                         </div>
                     </FadeIn>
@@ -192,6 +202,64 @@ export default function SessaoEstrategicaPage() {
                     </div>
                 </FadeIn>
             </section>
+
+            {/* Benefits Section */}
+            <section className="py-24 px-4 bg-white text-black">
+                <div className="max-w-7xl mx-auto text-center space-y-16">
+                    <FadeIn>
+                        <div className="max-w-3xl mx-auto space-y-4">
+                            <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight">
+                                O que você vai descobrir na sua Sessão Estratégica?
+                            </h2>
+                            <p className="text-lg text-neutral-600">
+                                Não é uma conversa de vendas. É um mergulho tático no seu posicionamento.
+                            </p>
+                        </div>
+                    </FadeIn>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
+                        {strategicBenefits.map((benefit, i) => (
+                            <FadeIn key={i} delay={0.2 * i} className="h-full">
+                                {/* @ts-ignore */}
+                                <SpotlightCard className="h-full rounded-2xl border-white/10" spotlightColor="rgba(212, 175, 55, 0.4)">
+                                    <div className="space-y-4 p-8 h-full flex flex-col justify-center border-l-4 border-gold">
+                                        <h3 className="text-xl font-bold text-white group-hover:text-gold transition-colors">{benefit.title}</h3>
+                                        <p className="text-neutral-400 leading-relaxed">{benefit.desc}</p>
+                                    </div>
+                                </SpotlightCard>
+                            </FadeIn>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* Kinetic Testimonials - Lazy Loaded */}
+            {/* <LazyLoad placeholder={<div className="min-h-[400px] animate-pulse bg-neutral-900/50" />}>
+                <KineticTestimonial testimonials={testimonials} />
+            </LazyLoad> */}
+
+            {/* Footer / Final CTA */}
+            <footer className="py-12 px-4 border-t border-white/5 bg-codirect-black">
+                <FadeIn>
+                    <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+                        <Link href="/" className="relative w-32 h-8 group overflow-hidden">
+                            <Image
+                                src="/logo.png"
+                                alt="CoDirect Logo"
+                                fill
+                                className="object-contain invert group-hover:scale-110 transition-transform duration-300"
+                            />
+                        </Link>
+                        <p className="text-neutral-500 text-sm">
+                            © 2025 CoDirect. Todos os direitos reservados.
+                        </p>
+                        <div className="flex gap-6">
+                            <a href="#" className="text-neutral-400 hover:text-gold transition-colors text-sm">Privacidade</a>
+                            <a href="#" className="text-neutral-400 hover:text-gold transition-colors text-sm">Termos de Uso</a>
+                        </div>
+                    </div>
+                </FadeIn>
+            </footer>
         </main>
     );
 }
