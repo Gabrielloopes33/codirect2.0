@@ -85,8 +85,14 @@ export function CustomRDForm({ formId = "lp-diagnostico-gratuito-eag-0ed1a17e058
             } else {
                 throw new Error(result.error || "Erro ao enviar formulário");
             }
-        } catch (err) {
-            setError("Erro ao enviar formulário. Tente novamente.");
+        } catch (err: any) {
+            let errorMsg = "Erro ao enviar formulário. Tente novamente.";
+            if (err instanceof Error && err.message) {
+                errorMsg += `\n${err.message}`;
+            } else if (typeof err === 'string') {
+                errorMsg += `\n${err}`;
+            }
+            setError(errorMsg);
             console.error(err);
         } finally {
             setLoading(false);
