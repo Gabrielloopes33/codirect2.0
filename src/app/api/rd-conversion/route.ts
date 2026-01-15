@@ -13,6 +13,29 @@ export async function POST(request: NextRequest) {
             );
         }
 
+        // Validação de email
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            return NextResponse.json(
+                { error: "Email inválido" },
+                { status: 400 }
+            );
+        }
+
+        // Validação e limpeza de telefone
+        let cleanPhone = "";
+        if (mobile_phone) {
+            cleanPhone = mobile_phone.replace(/\D/g, ""); // Remove tudo que não é número
+
+            // Valida se tem tamanho adequado (10-13 dígitos)
+            if (cleanPhone.length < 10 || cleanPhone.length > 13) {
+                return NextResponse.json(
+                    { error: "Telefone inválido. Use o formato com DDD: (11) 99999-9999" },
+                    { status: 400 }
+                );
+            }
+        }
+
         const rdToken = process.env.RD_STATION_TOKEN;
         const conversionIdentifier = process.env.RD_CONVERSION_IDENTIFIER || "sessao-estrategica-codirect";
 
@@ -29,24 +52,25 @@ export async function POST(request: NextRequest) {
         console.log("Conversion Identifier:", conversionIdentifier);
         console.log("Email:", email);
         console.log("Name:", name);
+        console.log("Phone (cleaned):", cleanPhone);
 
         // Monta o payload para a API v1.3 do RD Station (formato antigo que funciona com token privado)
         const payload: any = {
             token_rdstation: rdToken,
             identificador: conversionIdentifier,
-            email: email,
-            nome: name,
+            email: email.trim().toLowerCase(),
+            nome: name.trim(),
         };
 
-        // Adiciona campos opcionais
-        if (mobile_phone) {
-            payload.telefone = mobile_phone;
+        // Adiciona campos opcionais apenas se tiverem valor
+        if (cleanPhone && cleanPhone.length >= 10) {
+            payload.telefone = cleanPhone; // Envia apenas números
         }
-        if (cf_instagram_profissional) {
-            payload.cf_instagram_profissional = cf_instagram_profissional;
+        if (cf_instagram_profissional && cf_instagram_profissional.trim()) {
+            payload.cf_instagram_profissional = cf_instagram_profissional.trim();
         }
-        if (cf_faturamento_mensal) {
-            payload.cf_faturamento_mensal = cf_faturamento_mensal;
+        if (cf_faturamento_mensal && cf_faturamento_mensal.trim()) {
+            payload.cf_faturamento_mensal = cf_faturamento_mensal.trim();
         }
 
         console.log("Payload completo:", JSON.stringify(payload, null, 2));

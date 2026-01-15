@@ -38,16 +38,27 @@ export function CustomRDForm({ formId = "lp-diagnostico-gratuito-eag-0ed1a17e058
     const formatPhone = (phone: string) => {
         // Remove tudo que não for número
         let digits = phone.replace(/\D/g, "");
-        // Se já começa com 55, mantém
-        if (digits.startsWith("55")) return "+" + digits;
-        // Se começa com 0, remove
-        if (digits.startsWith("0")) digits = digits.slice(1);
-        // Se tem 11 dígitos (DDD+9), adiciona +55
-        if (digits.length === 11) return "+55" + digits;
-        // Se tem 13 dígitos (já tem DDI), adiciona +
-        if (digits.length === 13) return "+" + digits;
-        // Se não bate nenhum, retorna como está
-        return phone;
+
+        // Remove zeros à esquerda
+        digits = digits.replace(/^0+/, "");
+
+        // Se já começa com 55 e tem 12 ou 13 dígitos (55 + DDD + número)
+        if (digits.startsWith("55") && (digits.length === 12 || digits.length === 13)) {
+            return digits; // Retorna sem o +, RD Station aceita apenas números
+        }
+
+        // Se tem 10 ou 11 dígitos (DDD + número), adiciona 55
+        if (digits.length === 10 || digits.length === 11) {
+            return "55" + digits;
+        }
+
+        // Se tem 12 ou 13 dígitos mas não começa com 55, assume que já tem DDI
+        if (digits.length === 12 || digits.length === 13) {
+            return digits;
+        }
+
+        // Se não bate nenhum padrão, retorna apenas os dígitos
+        return digits;
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -62,7 +73,42 @@ export function CustomRDForm({ formId = "lp-diagnostico-gratuito-eag-0ed1a17e058
             return;
         }
 
+        // Validação de email
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(formData.email)) {
+            setError("Por favor, insira um email válido.");
+            setLoading(false);
+            return;
+        }
+
+        // Validação de telefone
+        const phoneDigits = formData.phone.replace(/\D/g, "");
+        if (phoneDigits.length < 10 || phoneDigits.length > 13) {
+            setError("Por favor, insira um telefone válido com DDD.");
+            setLoading(false);
+            return;
+        }
+
+        // Validação de Instagram
+        const instagramValue = formData.instagram.trim();
+        if (!instagramValue || instagramValue.length < 2) {
+            setError("Por favor, insira um Instagram válido.");
+            setLoading(false);
+            return;
+        }
+
         try {
+            const formattedPhone = formatPhone(formData.phone);
+            const instagramFormatted = instagramValue.startsWith("@") ? instagramValue : `@${instagramValue}`;
+
+            console.log("Enviando dados:", {
+                name: formData.name,
+                email: formData.email,
+                mobile_phone: formattedPhone,
+                cf_instagram_profissional: instagramFormatted,
+                cf_faturamento_mensal: formData.revenue,
+            });
+
             // Envia para nossa API route que se comunica com o RD Station
             const response = await fetch("/api/rd-conversion", {
                 method: "POST",
@@ -70,10 +116,10 @@ export function CustomRDForm({ formId = "lp-diagnostico-gratuito-eag-0ed1a17e058
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    name: formData.name,
-                    email: formData.email,
-                    mobile_phone: formatPhone(formData.phone),
-                    cf_instagram_profissional: formData.instagram,
+                    name: formData.name.trim(),
+                    email: formData.email.trim().toLowerCase(),
+                    mobile_phone: formattedPhone,
+                    cf_instagram_profissional: instagramFormatted,
                     cf_faturamento_mensal: formData.revenue,
                 }),
             });
@@ -92,7 +138,7 @@ export function CustomRDForm({ formId = "lp-diagnostico-gratuito-eag-0ed1a17e058
                 });
                 // Gera novo captcha após sucesso
                 setCaptchaData(generateCaptcha());
-                
+
                 // Redireciona para página de agradecimento após 2 segundos
                 setTimeout(() => {
                     window.location.href = "/obrigado-sessao";
@@ -103,12 +149,12 @@ export function CustomRDForm({ formId = "lp-diagnostico-gratuito-eag-0ed1a17e058
         } catch (err: any) {
             let errorMsg = "Erro ao enviar formulário. Tente novamente.";
             if (err instanceof Error && err.message) {
-                errorMsg += `\n${err.message}`;
+                errorMsg = err.message;
             } else if (typeof err === 'string') {
-                errorMsg += `\n${err}`;
+                errorMsg = err;
             }
             setError(errorMsg);
-            console.error(err);
+            console.error("Erro no submit:", err);
         } finally {
             setLoading(false);
         }
@@ -172,7 +218,7 @@ export function CustomRDForm({ formId = "lp-diagnostico-gratuito-eag-0ed1a17e058
             {/* Telefone */}
             <div>
                 <label htmlFor="phone" className="block text-sm font-medium text-neutral-300 mb-2">
-                    Telefone*
+                    Telefone* (com DDD)
                 </label>
                 <input
                     type="tel"
@@ -181,8 +227,10 @@ export function CustomRDForm({ formId = "lp-diagnostico-gratuito-eag-0ed1a17e058
                     value={formData.phone}
                     onChange={handleChange}
                     required
+                    inputMode="numeric"
+                    pattern="[0-9+()\s-]*"
                     className="w-full px-4 py-3 bg-transparent border-2 border-gold/25 rounded-xl text-white placeholder-neutral-500 focus:border-gold focus:outline-none transition-colors"
-                    placeholder="+55 (11) 99999-9999"
+                    placeholder="(11) 99999-9999"
                 />
             </div>
 
@@ -237,6 +285,8 @@ export function CustomRDForm({ formId = "lp-diagnostico-gratuito-eag-0ed1a17e058
                     value={formData.captcha}
                     onChange={handleChange}
                     required
+                    inputMode="numeric"
+                    pattern="[0-9]*"
                     className="w-full px-4 py-3 bg-transparent border-2 border-gold/25 rounded-xl text-white placeholder-neutral-500 focus:border-gold focus:outline-none transition-colors"
                     placeholder="Sua resposta"
                 />
