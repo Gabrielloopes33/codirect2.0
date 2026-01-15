@@ -109,8 +109,8 @@ export function CustomRDForm({ formId = "lp-diagnostico-gratuito-eag-0ed1a17e058
                 cf_faturamento_mensal: formData.revenue,
             });
 
-            // Envia para nossa API route que se comunica com o RD Station
-            const response = await fetch("/api/rd-conversion", {
+            // Envia diretamente para o webhook do n8n em produção
+            const response = await fetch("http://n8n.codirect.com.br/webhook/61cd9f45-665e-435e-bdcb-6264e1ec0f23", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
