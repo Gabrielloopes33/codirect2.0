@@ -124,9 +124,31 @@ export function CustomRDForm({ formId = "lp-diagnostico-gratuito-eag-0ed1a17e058
                 }),
             });
 
-            const result = await response.json();
+            console.log("Response status:", response.status);
+            console.log("Response ok:", response.ok);
 
-            if (response.ok && result.success) {
+            // Tenta ler a resposta como texto primeiro para debug
+            const responseText = await response.text();
+            console.log("Response text:", responseText);
+
+            // Se a resposta estiver vazia ou não for JSON, considera sucesso se status for 2xx
+            let result: any = {};
+            if (responseText) {
+                try {
+                    result = JSON.parse(responseText);
+                } catch (parseError) {
+                    console.log("Resposta não é JSON válido, mas webhook respondeu");
+                    // Se não for JSON mas a requisição foi OK, considera sucesso
+                    if (response.ok) {
+                        result = { success: true };
+                    }
+                }
+            } else if (response.ok) {
+                // Resposta vazia mas status OK = sucesso
+                result = { success: true };
+            }
+
+            if (response.ok && (result.success || result.success === undefined)) {
                 setSuccess(true);
                 setFormData({
                     name: "",
