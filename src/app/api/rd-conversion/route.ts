@@ -50,6 +50,7 @@ export async function POST(request: NextRequest) {
         }
 
         console.log("Payload completo:", JSON.stringify(payload, null, 2));
+        console.log("Payload enviado ao RD Station:", JSON.stringify(payload));
 
         // Envia para API v1.2 do RD Station (funciona com token público)
         const apiUrl = "https://www.rdstation.com.br/api/1.2/conversions";
@@ -71,7 +72,9 @@ export async function POST(request: NextRequest) {
             console.error("=== ERRO RD STATION ===");
             console.error("Status:", response.status);
             console.error("Response:", responseText);
-            throw new Error(`RD Station API error: ${response.status} - ${responseText}`);
+            return NextResponse.json({
+                error: `Erro RD Station: ${response.status} - ${responseText}\nPayload: ${JSON.stringify(payload)}`
+            }, { status: 500 });
         }
 
         // Tenta fazer parse do JSON se houver resposta
