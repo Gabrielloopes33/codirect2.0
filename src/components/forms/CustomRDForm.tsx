@@ -35,6 +35,21 @@ export function CustomRDForm({ formId = "lp-diagnostico-gratuito-eag-0ed1a17e058
         setCaptchaData(generateCaptcha());
     }, []);
 
+    const formatPhone = (phone: string) => {
+        // Remove tudo que não for número
+        let digits = phone.replace(/\D/g, "");
+        // Se já começa com 55, mantém
+        if (digits.startsWith("55")) return "+" + digits;
+        // Se começa com 0, remove
+        if (digits.startsWith("0")) digits = digits.slice(1);
+        // Se tem 11 dígitos (DDD+9), adiciona +55
+        if (digits.length === 11) return "+55" + digits;
+        // Se tem 13 dígitos (já tem DDI), adiciona +
+        if (digits.length === 13) return "+" + digits;
+        // Se não bate nenhum, retorna como está
+        return phone;
+    };
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
@@ -57,7 +72,7 @@ export function CustomRDForm({ formId = "lp-diagnostico-gratuito-eag-0ed1a17e058
                 body: JSON.stringify({
                     name: formData.name,
                     email: formData.email,
-                    mobile_phone: formData.phone,
+                    mobile_phone: formatPhone(formData.phone),
                     cf_instagram_profissional: formData.instagram,
                     cf_faturamento_mensal: formData.revenue,
                 }),
