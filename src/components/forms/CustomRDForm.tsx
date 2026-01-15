@@ -228,7 +228,7 @@ export function CustomRDForm({ formId = "lp-diagnostico-gratuito-eag-0ed1a17e058
                     onChange={handleChange}
                     required
                     inputMode="numeric"
-                    pattern="[0-9+()\s-]*"
+                    pattern="[0-9()+\- ]*"
                     className="w-full px-4 py-3 bg-transparent border-2 border-gold/25 rounded-xl text-white placeholder-neutral-500 focus:border-gold focus:outline-none transition-colors"
                     placeholder="(11) 99999-9999"
                 />
