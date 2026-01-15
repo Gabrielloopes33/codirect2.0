@@ -105,47 +105,63 @@ export default function SessaoEstrategicaPage() {
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(212,175,55,0.1),transparent_50%)]" />
 
                 <div className="max-w-6xl mx-auto relative z-10">
-                    {/* Título Principal - Simplificado */}
-                    <FadeIn delay={0.1}>
-                        <div className="text-center mb-8 md:mb-10 pt-4 md:pt-6">
-                            <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight mb-4">
-                                A CODIRECT identifica a sua Essência e te orienta em como se Posicionar para faturar mais.
-                            </h1>
-                            <p className="text-lg md:text-xl text-neutral-400 max-w-2xl mx-auto">
-                                Seu negócio merece o próximo nível.
-                            </p>
-                        </div>
-                    </FadeIn>
+                    {/* Conteúdo em Grid - Texto e Formulário Lado a Lado */}
+                    <div className="grid lg:grid-cols-2 gap-8 items-start">
+                        {/* Coluna da Esquerda - Texto */}
+                        <FadeIn delay={0.1}>
+                            <div className="pt-4 md:pt-12">
+                                <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight mb-6">
+                                    A CODIRECT identifica a sua Essência e te orienta em como se Posicionar para faturar mais.
+                                </h1>
+                                <p className="text-lg md:text-xl text-neutral-400 mb-8">
+                                    Seu negócio merece o próximo nível.
+                                </p>
 
-                    {/* Formulário - Logo Abaixo */}
-                    <FadeIn delay={0.2} className="relative mb-12">
-                        <div className="absolute inset-0 bg-gold/20 blur-3xl rounded-full opacity-20 -z-10" />
-                        <div className="max-w-lg mx-auto p-1 rounded-3xl bg-gradient-to-b from-gold/30 to-transparent shadow-[0_0_80px_-20px_rgba(212,175,55,0.5)]">
-                            <div className="bg-gradient-to-br from-[#1a1a1a] to-[#0d0d0d] p-6 md:p-10 rounded-[1.4rem] border border-gold/20 shadow-2xl">
-                                <div className="mb-6 text-center">
-                                    <div className="inline-flex items-center gap-2 px-4 py-2 mb-4 rounded-full bg-gold/10 border border-gold/30">
-                                        <span className="flex h-2 w-2 rounded-full bg-gold animate-pulse"></span>
-                                        <span className="text-xs font-bold text-gold uppercase tracking-wider">Apenas para faturamento 30k+/mês</span>
-                                    </div>
-                                    <h2 className="text-2xl md:text-3xl font-bold mb-2 bg-gradient-to-r from-white to-neutral-300 bg-clip-text text-transparent">Aplicação para Sessão</h2>
-                                    <p className="text-neutral-400 text-sm">
-                                        Preencha os dados abaixo para desbloquear seu diagnóstico.
-                                    </p>
+                                {/* Benefícios inline */}
+                                <div className="space-y-4">
+                                    {benefits.map((item, i) => (
+                                        <div key={i} className="flex items-start gap-4">
+                                            <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-gold/10 flex items-center justify-center">
+                                                <item.icon className="w-6 h-6 text-gold" />
+                                            </div>
+                                            <div>
+                                                <h3 className="font-semibold text-lg mb-1">{item.title}</h3>
+                                                <p className="text-sm text-neutral-400">{item.desc}</p>
+                                            </div>
+                                        </div>
+                                    ))}
                                 </div>
-
-                                {/* Formulário Customizado */}
-                                <div className="rd-form-wrapper">
-                                    <CustomRDForm formId="lp-diagnostico-gratuito-eag-0ed1a17e058ba32652b4" />
-                                </div>
-
-                                
                             </div>
-                        </div>
-                    </FadeIn>
+                        </FadeIn>
 
-                    {/* Benefícios - Depois do Formulário */}
-                    <FadeIn delay={0.3}>
-                        <div className="max-w-3xl mx-auto">
+                        {/* Coluna da Direita - Formulário */}
+                        <FadeIn delay={0.2} className="relative lg:sticky lg:top-8">
+                            <div className="absolute inset-0 bg-gold/20 blur-3xl rounded-full opacity-20 -z-10" />
+                            <div className="p-1 rounded-3xl bg-gradient-to-b from-gold/30 to-transparent shadow-[0_0_80px_-20px_rgba(212,175,55,0.5)]">
+                                <div className="bg-gradient-to-br from-[#1a1a1a] to-[#0d0d0d] p-6 md:p-10 rounded-[1.4rem] border border-gold/20 shadow-2xl">
+                                    <div className="mb-6 text-center">
+                                        <div className="inline-flex items-center gap-2 px-4 py-2 mb-4 rounded-full bg-gold/10 border border-gold/30">
+                                            <span className="flex h-2 w-2 rounded-full bg-gold animate-pulse"></span>
+                                            <span className="text-xs font-bold text-gold uppercase tracking-wider">Apenas para faturamento 30k+/mês</span>
+                                        </div>
+                                        <h2 className="text-2xl md:text-3xl font-bold mb-2 bg-gradient-to-r from-white to-neutral-300 bg-clip-text text-transparent">Aplicação para Sessão</h2>
+                                        <p className="text-neutral-400 text-sm">
+                                            Preencha os dados abaixo para desbloquear seu diagnóstico.
+                                        </p>
+                                    </div>
+
+                                    {/* Formulário Customizado */}
+                                    <div className="rd-form-wrapper">
+                                        <CustomRDForm formId="lp-diagnostico-gratuito-eag-0ed1a17e058ba32652b4" />
+                                    </div>
+                                </div>
+                            </div>
+                        </FadeIn>
+                    </div>
+
+                    {/* Benefícios - Abaixo do Grid */}
+                    <FadeIn delay={0.3} className="mt-16">
+                        <div className="max-w-3xl mx-auto hidden">
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                                 {benefits.map((item, i) => (
                                     <div key={i} className="flex gap-4 items-start p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-gold/50 transition-all duration-300 group hover:shadow-[0_0_30px_-10px_rgba(212,175,55,0.3)]">

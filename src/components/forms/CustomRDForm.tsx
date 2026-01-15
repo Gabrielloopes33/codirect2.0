@@ -77,6 +77,11 @@ export function CustomRDForm({ formId = "lp-diagnostico-gratuito-eag-0ed1a17e058
                 });
                 // Gera novo captcha após sucesso
                 setCaptchaData(generateCaptcha());
+                
+                // Redireciona para página de agradecimento após 2 segundos
+                setTimeout(() => {
+                    window.location.href = "/obrigado-sessao";
+                }, 2000);
             } else {
                 throw new Error(result.error || "Erro ao enviar formulário");
             }
