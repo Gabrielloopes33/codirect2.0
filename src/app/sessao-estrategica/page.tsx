@@ -107,8 +107,8 @@ export default function SessaoEstrategicaPage() {
                 <div className="max-w-6xl mx-auto relative z-10">
                     {/* Conteúdo em Grid - Texto e Formulário Lado a Lado */}
                     <div className="grid lg:grid-cols-2 gap-8 items-start">
-                        {/* Coluna da Esquerda - Texto */}
-                        <FadeIn delay={0.1}>
+                        {/* Coluna da Esquerda - Texto (aparece depois no mobile, antes no desktop) */}
+                        <FadeIn delay={0.1} className="order-2 lg:order-1">
                             <div className="pt-4 md:pt-12">
                                 <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight mb-6">
                                     A CODIRECT identifica a sua Essência e te orienta em como se Posicionar para faturar mais.
@@ -134,8 +134,12 @@ export default function SessaoEstrategicaPage() {
                             </div>
                         </FadeIn>
 
-                        {/* Coluna da Direita - Formulário */}
-                        <FadeIn delay={0.2} className="relative lg:sticky lg:top-8">
+                        {/* Coluna da Direita - Formulário (aparece primeiro no mobile) */}
+                        <FadeIn delay={0.1} className="relative order-1 lg:order-2 lg:sticky lg:top-8">
+                            {/* Título mobile - só aparece no mobile acima do formulário */}
+                            <h1 className="lg:hidden text-2xl md:text-3xl font-extrabold tracking-tight leading-tight mb-4 text-center">
+                                Posicione-se para faturar mais
+                            </h1>
                             <div className="absolute inset-0 bg-gold/20 blur-3xl rounded-full opacity-20 -z-10" />
                             <div className="p-1 rounded-3xl bg-gradient-to-b from-gold/30 to-transparent shadow-[0_0_80px_-20px_rgba(212,175,55,0.5)]">
                                 <div className="bg-gradient-to-br from-[#1a1a1a] to-[#0d0d0d] p-6 md:p-10 rounded-[1.4rem] border border-gold/20 shadow-2xl">

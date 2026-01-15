@@ -215,7 +215,7 @@ export function CustomRDForm({ formId = "lp-diagnostico-gratuito-eag-0ed1a17e058
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 bg-transparent border-2 border-gold/25 rounded-xl text-white placeholder-neutral-500 focus:border-gold focus:outline-none transition-colors"
+                    className="w-full px-4 py-3 bg-transparent border-2 border-gold/25 rounded-xl text-white text-base placeholder-neutral-500 focus:border-gold focus:outline-none transition-colors"
                     placeholder="Seu nome completo"
                 />
             </div>
@@ -232,7 +232,7 @@ export function CustomRDForm({ formId = "lp-diagnostico-gratuito-eag-0ed1a17e058
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 bg-transparent border-2 border-gold/25 rounded-xl text-white placeholder-neutral-500 focus:border-gold focus:outline-none transition-colors"
+                    className="w-full px-4 py-3 bg-transparent border-2 border-gold/25 rounded-xl text-white text-base placeholder-neutral-500 focus:border-gold focus:outline-none transition-colors"
                     placeholder="seu@email.com"
                 />
             </div>
@@ -251,7 +251,7 @@ export function CustomRDForm({ formId = "lp-diagnostico-gratuito-eag-0ed1a17e058
                     required
                     inputMode="numeric"
                     pattern="[0-9()+\- ]*"
-                    className="w-full px-4 py-3 bg-transparent border-2 border-gold/25 rounded-xl text-white placeholder-neutral-500 focus:border-gold focus:outline-none transition-colors"
+                    className="w-full px-4 py-3 bg-transparent border-2 border-gold/25 rounded-xl text-white text-base placeholder-neutral-500 focus:border-gold focus:outline-none transition-colors"
                     placeholder="(11) 99999-9999"
                 />
             </div>
@@ -268,7 +268,7 @@ export function CustomRDForm({ formId = "lp-diagnostico-gratuito-eag-0ed1a17e058
                     value={formData.instagram}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 bg-transparent border-2 border-gold/25 rounded-xl text-white placeholder-neutral-500 focus:border-gold focus:outline-none transition-colors"
+                    className="w-full px-4 py-3 bg-transparent border-2 border-gold/25 rounded-xl text-white text-base placeholder-neutral-500 focus:border-gold focus:outline-none transition-colors"
                     placeholder="@seu_instagram"
                 />
             </div>
@@ -284,7 +284,7 @@ export function CustomRDForm({ formId = "lp-diagnostico-gratuito-eag-0ed1a17e058
                     value={formData.revenue}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 bg-[#1a1a1a] border-2 border-gold/25 rounded-xl text-white focus:border-gold focus:outline-none transition-colors cursor-pointer [&>option]:bg-[#1a1a1a] [&>option]:text-white"
+                    className="w-full px-4 py-3 bg-[#1a1a1a] border-2 border-gold/25 rounded-xl text-white text-base focus:border-gold focus:outline-none transition-colors cursor-pointer [&>option]:bg-[#1a1a1a] [&>option]:text-white"
                 >
                     <option value="" className="bg-[#1a1a1a] text-neutral-400">Selecione</option>
                     <option value="ate-30mil" className="bg-[#1a1a1a] text-white">Até 30 mil (obs: apenas negócios que faturam 30 mil ou mais são indicados para contratar a Assessoria da Codirect)</option>
@@ -309,7 +309,7 @@ export function CustomRDForm({ formId = "lp-diagnostico-gratuito-eag-0ed1a17e058
                     required
                     inputMode="numeric"
                     pattern="[0-9]*"
-                    className="w-full px-4 py-3 bg-transparent border-2 border-gold/25 rounded-xl text-white placeholder-neutral-500 focus:border-gold focus:outline-none transition-colors"
+                    className="w-full px-4 py-3 bg-transparent border-2 border-gold/25 rounded-xl text-white text-base placeholder-neutral-500 focus:border-gold focus:outline-none transition-colors"
                     placeholder="Sua resposta"
                 />
             </div>
