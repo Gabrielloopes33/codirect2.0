@@ -156,7 +156,7 @@ export default function SessaoEstrategicaPage() {
 
                                     {/* Formulário Customizado */}
                                     <div className="rd-form-wrapper">
-                                        <CustomRDForm formId="lp-diagnostico-gratuito-eag-0ed1a17e058ba32652b4" />
+                                        <CustomRDForm formId="lp-diagnostico-gratuito-eag-0ed1a17e058ba32652b4" showCaptcha={false} />
                                     </div>
                                 </div>
                             </div>

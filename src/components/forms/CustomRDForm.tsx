@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 
 interface CustomRDFormProps {
     formId?: string;
+    showCaptcha?: boolean;
 }
 
 // Função para gerar números aleatórios para o captcha
@@ -13,7 +14,7 @@ function generateCaptcha() {
     return { num1, num2, answer: num1 + num2 };
 }
 
-export function CustomRDForm({ formId = "lp-diagnostico-gratuito-eag-0ed1a17e058ba32652b4" }: CustomRDFormProps) {
+export function CustomRDForm({ formId = "lp-diagnostico-gratuito-eag-0ed1a17e058ba32652b4", showCaptcha = true }: CustomRDFormProps) {
     // Inicializa com valores fixos para evitar hydration mismatch
     const [captchaData, setCaptchaData] = useState({ num1: 0, num2: 0, answer: 0 });
     const [isClient, setIsClient] = useState(false);
@@ -66,11 +67,13 @@ export function CustomRDForm({ formId = "lp-diagnostico-gratuito-eag-0ed1a17e058
         setLoading(true);
         setError("");
 
-        // Validação dinâmica do captcha
-        if (parseInt(formData.captcha) !== captchaData.answer) {
-            setError(`Resposta do captcha incorreta. ${captchaData.num1} + ${captchaData.num2} = ?`);
-            setLoading(false);
-            return;
+        // Validação dinâmica do captcha (apenas se estiver habilitado)
+        if (showCaptcha) {
+            if (parseInt(formData.captcha) !== captchaData.answer) {
+                setError(`Resposta do captcha incorreta. ${captchaData.num1} + ${captchaData.num2} = ?`);
+                setLoading(false);
+                return;
+            }
         }
 
         // Validação de email
@@ -295,24 +298,26 @@ export function CustomRDForm({ formId = "lp-diagnostico-gratuito-eag-0ed1a17e058
                 </select>
             </div>
 
-            {/* Captcha Dinâmico */}
-            <div>
-                <label htmlFor="captcha" className="block text-sm font-medium text-neutral-300 mb-2">
-                    {isClient ? `Quanto é ${captchaData.num1} + ${captchaData.num2}?*` : "Carregando..."}
-                </label>
-                <input
-                    type="text"
-                    id="captcha"
-                    name="captcha"
-                    value={formData.captcha}
-                    onChange={handleChange}
-                    required
-                    inputMode="numeric"
-                    pattern="[0-9]*"
-                    className="w-full px-4 py-3 bg-transparent border-2 border-gold/25 rounded-xl text-white text-base placeholder-neutral-500 focus:border-gold focus:outline-none transition-colors"
-                    placeholder="Sua resposta"
-                />
-            </div>
+            {/* Captcha Dinâmico (opcional) */}
+            {showCaptcha && (
+                <div>
+                    <label htmlFor="captcha" className="block text-sm font-medium text-neutral-300 mb-2">
+                        {isClient ? `Quanto é ${captchaData.num1} + ${captchaData.num2}?*` : "Carregando..."}
+                    </label>
+                    <input
+                        type="text"
+                        id="captcha"
+                        name="captcha"
+                        value={formData.captcha}
+                        onChange={handleChange}
+                        required
+                        inputMode="numeric"
+                        pattern="[0-9]*"
+                        className="w-full px-4 py-3 bg-transparent border-2 border-gold/25 rounded-xl text-white text-base placeholder-neutral-500 focus:border-gold focus:outline-none transition-colors"
+                        placeholder="Sua resposta"
+                    />
+                </div>
+            )}
 
             {/* Error Message */}
             {error && (
