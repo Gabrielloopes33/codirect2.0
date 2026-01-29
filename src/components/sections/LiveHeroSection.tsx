@@ -23,8 +23,7 @@ export function LiveHeroSection({ className }: LiveHeroSectionProps) {
         name: "",
         email: "",
         phone: "",
-        company: "",
-        revenue: ""
+        instagram: ""
     });
     const [isLoading, setIsLoading] = useState(false);
 
@@ -175,17 +174,19 @@ export function LiveHeroSection({ className }: LiveHeroSectionProps) {
                         </div>
 
                         <form onSubmit={handleSubmit} className="space-y-4">
-                            <div>
+                            <div className="space-y-2 text-left">
+                                <label className="text-sm font-medium text-white ml-1">Nome</label>
                                 <input
                                     type="text"
                                     value={formData.name}
                                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                    placeholder="Nome completo"
+                                    placeholder="Nome"
                                     required
                                     className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:border-codirect-gold focus:ring-2 focus:ring-codirect-gold/50 transition-all"
                                 />
                             </div>
-                            <div>
+                            <div className="space-y-2 text-left">
+                                <label className="text-sm font-medium text-white ml-1">E-mail</label>
                                 <input
                                     type="email"
                                     value={formData.email}
@@ -195,41 +196,27 @@ export function LiveHeroSection({ className }: LiveHeroSectionProps) {
                                     className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:border-codirect-gold focus:ring-2 focus:ring-codirect-gold/50 transition-all"
                                 />
                             </div>
-                            <div>
+                            <div className="space-y-2 text-left">
+                                <label className="text-sm font-medium text-white ml-1">Whatsapp</label>
                                 <input
                                     type="tel"
                                     value={formData.phone}
                                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                                    placeholder="Telefone/WhatsApp"
+                                    placeholder="Whatsapp"
                                     required
                                     className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:border-codirect-gold focus:ring-2 focus:ring-codirect-gold/50 transition-all"
                                 />
                             </div>
-                            <div>
+                            <div className="space-y-2 text-left">
+                                <label className="text-sm font-medium text-white ml-1">Qual seu @instagram profissional?</label>
                                 <input
                                     type="text"
-                                    value={formData.company}
-                                    onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                                    placeholder="Nome da empresa"
+                                    value={formData.instagram}
+                                    onChange={(e) => setFormData({ ...formData, instagram: e.target.value })}
+                                    placeholder="@evandromazuco"
                                     required
                                     className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:border-codirect-gold focus:ring-2 focus:ring-codirect-gold/50 transition-all"
                                 />
-                            </div>
-                            <div>
-                                <select
-                                    value={formData.revenue}
-                                    onChange={(e) => setFormData({ ...formData, revenue: e.target.value })}
-                                    required
-                                    className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/20 text-white focus:outline-none focus:border-codirect-gold focus:ring-2 focus:ring-codirect-gold/50 transition-all"
-                                >
-                                    <option value="" disabled className="text-black">Selecione</option>
-                                    <option value="0-50k" className="text-black">Até 50 mil</option>
-                                    <option value="50k-100k" className="text-black">50 mil a 100 mil</option>
-                                    <option value="100k-250k" className="text-black">100 mil a 250 mil</option>
-                                    <option value="250k-500k" className="text-black">250 mil a 500 mil</option>
-                                    <option value="500k-1m" className="text-black">500 mil a 1 milhão</option>
-                                    <option value="1m+" className="text-black">Acima de 1 milhão</option>
-                                </select>
                             </div>
                             
                             <motion.button
