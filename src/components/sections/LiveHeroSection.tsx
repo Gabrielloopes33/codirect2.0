@@ -33,16 +33,24 @@ export function LiveHeroSection({ className }: LiveHeroSectionProps) {
     const handleSubmit = useCallback(async (e: React.FormEvent) => {
         e.preventDefault();
         setIsLoading(true);
-        
-        // TODO: Integrar com RDStation ou seu backend
-        // Simulando envio do formulário
-        setTimeout(() => {
-            setIsLoading(false);
+
+        try {
+            await fetch("https://n8n.codirect.com.br/webhook/61cd9f45-665e-bdcb-6264e1ec0f23-live", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(formData),
+            });
+
             setShowModal(false);
-            // Redirecionar para página de agradecimento
             window.location.href = "https://pg.codirect.com.br/obrigado-webinario/";
-        }, 1000);
-    }, []);
+        } catch (error) {
+            console.error("Erro ao enviar formulário:", error);
+        } finally {
+            setIsLoading(false);
+        }
+    }, [formData]);
 
     const buttonVariants = useMemo(() => ({
         whileHover: { scale: 1.02 },
