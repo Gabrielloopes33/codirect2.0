@@ -56,6 +56,13 @@
   to = "/.netlify/functions/:splat"
   status = 200
 
+# Redirect live-whatsapp para live com UTMs
+[[redirects]]
+  from = "/live-whatsapp"
+  to = "/live?utm_source=whatsapp&utm_medium=disparo_leads_frios&utm_campaign=live_tendencias_2026&utm_content=convite_wpp"
+  status = 301
+  force = true
+
 # Prerender specific pages for better performance
 [build.processing]
   skip_processing = false
